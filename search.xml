@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>CMIP6 nc文件降尺度</title>
+      <link href="/BeansBlog/archives/caccdf60.html"/>
+      <url>/BeansBlog/archives/caccdf60.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="CMIP6-nc-文件降尺度"><a href="#CMIP6-nc-文件降尺度" class="headerlink" title="CMIP6 nc 文件降尺度"></a>CMIP6 nc 文件降尺度</h2><h4 id="导入相关包"><a href="#导入相关包" class="headerlink" title="导入相关包"></a>导入相关包</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xarray <span class="keyword">as</span> xr</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure><h4 id="降尺度"><a href="#降尺度" class="headerlink" title="降尺度"></a>降尺度</h4><p>本代码以经纬度分割后的数据为例将 nc 文件进行线性插值降尺度到 0.5*0.5。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">new_lon = np.arange(<span class="number">70</span>, <span class="number">140</span>, <span class="number">0.5</span>)  <span class="comment"># 经度范围及目标尺度</span></span><br><span class="line">new_lat = np.arange(<span class="number">15</span>, <span class="number">60</span>, <span class="number">0.5</span>)  <span class="comment"># 纬度范围及目标尺度</span></span><br><span class="line"><span class="comment"># 多文件处理可以采用循环</span></span><br><span class="line"><span class="keyword">for</span> year <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2015</span>, <span class="number">2040</span>):</span><br><span class="line">    <span class="comment"># 打开文件</span></span><br><span class="line">    ori_data = xr.open_dataset(<span class="string">&#x27;CMIP6/pr_China/pr_China_&#x27;</span> + <span class="built_in">str</span>(year) + <span class="string">&#x27;.nc&#x27;</span>)</span><br><span class="line">    new_data = ori_data.interp(lat=new_lat, lon=new_lon)  <span class="comment"># 线性插值</span></span><br><span class="line">    <span class="comment"># 输出路径</span></span><br><span class="line">    new_data.to_netcdf(<span class="string">&#x27;CMIP6_0.5/pr_China_0.5/pr_China_0.5_&#x27;</span> + <span class="built_in">str</span>(year) + <span class="string">&#x27;.nc&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(year) + <span class="string">&#x27;success&#x27;</span>)</span><br></pre></td></tr></table></figure><div class="tip warning"><p>CMIP6 中的经度为(0,360)，其中(0,180)为东经,(180,360)为西经，所以可以很方便地插值。但是有的 nc 文件经度为(-180,180),其中(-180,0)为西经,(0,-180)为东经，因此不能直接插值，需要重写一下经度，并在变量层重新做映射，再插值。</p></div><div class="tip warning"><p>如果要对多个 nc 文件做插值，一般用到循环，需在每次转存结束后释放内存，防止内存溢出。</p></div><div class="tag link"><a class="link-card" title="参考链接" href="https://zhuanlan.zhihu.com/p/381676029"><div class="left"><img src="https://api.qqsuu.cn/api/favicon/get.php?url=https://zhuanlan.zhihu.com/p/381676029"/></div><div class="right"><p class="text">参考链接</p><p class="url">https://zhuanlan.zhihu.com/p/381676029</p></div></a></div>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> CMIP Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CMIP6 nc文件按时间、经纬度分割</title>
+      <link href="/BeansBlog/archives/eb5149de.html"/>
+      <url>/BeansBlog/archives/eb5149de.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="MIP6-nc-文件按时间、经纬度分割"><a href="#MIP6-nc-文件按时间、经纬度分割" class="headerlink" title="MIP6 nc 文件按时间、经纬度分割"></a>MIP6 nc 文件按时间、经纬度分割</h2><h4 id="导入相关包"><a href="#导入相关包" class="headerlink" title="导入相关包"></a>导入相关包</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xarray <span class="keyword">as</span> xr</span><br></pre></td></tr></table></figure><h4 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h4><p>可以单独进行按时间分割和按经纬度分割。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">nc = xr.open_dataset(</span><br><span class="line">    <span class="string">r&#x27;D:\WorkSpace\Python_WorkSpace\CMIP_Test\Data\pr_day_BCC-CSM2-MR_ssp126_r1i1p1f1_gn_20150101-20391231.nc&#x27;</span>)</span><br><span class="line">v = nc[<span class="string">&#x27;pr&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(v)</span><br><span class="line"><span class="keyword">for</span> year <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2015</span>, <span class="number">2040</span>):</span><br><span class="line">    time = v.loc[<span class="built_in">str</span>(year) + <span class="string">&#x27;-01-01 00:00:00&#x27;</span>:<span class="built_in">str</span>(year + <span class="number">1</span>) + <span class="string">&#x27;-01-01 00:00:00&#x27;</span>]</span><br><span class="line">    latlon = time.loc[:, <span class="number">15</span>:<span class="number">60</span>, <span class="number">70</span>:<span class="number">140</span>]  <span class="comment"># 最小纬度:最大纬度,最小经度:最大经度</span></span><br><span class="line">    ds = xr.Dataset(&#123;<span class="string">&#x27;pr&#x27;</span>: latlon&#125;)</span><br><span class="line">    <span class="comment"># ds = xr.Dataset(&#123;&quot;pr&quot;: time&#125;)</span></span><br><span class="line">    ds.to_netcdf(<span class="string">&#x27;D:\WorkSpace\Python_WorkSpace\CMIP_Test\CMIP6\pr_China\pr_China_&#x27;</span> + <span class="built_in">str</span>(year) + <span class="string">&#x27;.nc&#x27;</span>)  <span class="comment"># 输出路径</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(year) + <span class="string">&#x27;success&#x27;</span>)</span><br></pre></td></tr></table></figure><div class="tag link"><a class="link-card" title="参考链接" href="https://blog.csdn.net/asdtf123/article/details/122141105"><div class="left"><img src="https://api.qqsuu.cn/api/favicon/get.php?url=https://blog.csdn.net/asdtf123/article/details/122141105"/></div><div class="right"><p class="text">参考链接</p><p class="url">https://blog.csdn.net/asdtf123/article/details/122141105</p></div></a></div>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> CMIP Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CMIP6 模型、实验、变量表格下载</title>
       <link href="/BeansBlog/archives/1620af90.html"/>
       <url>/BeansBlog/archives/1620af90.html</url>
