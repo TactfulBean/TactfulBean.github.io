@@ -2,9 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://tactfulbean.github.io/archives/4a17b156.html</loc>
+    
+    <lastmod>2022-10-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://tactfulbean.github.io/archives/eb5149de.html</loc>
     
-    <lastmod>2022-10-01</lastmod>
+    <lastmod>2022-10-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -13,25 +22,7 @@
   <url>
     <loc>https://tactfulbean.github.io/archives/caccdf60.html</loc>
     
-    <lastmod>2022-10-01</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://tactfulbean.github.io/archives/4a17b156.html</loc>
-    
-    <lastmod>2022-10-01</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://tactfulbean.github.io/archives/f535b820.html</loc>
-    
-    <lastmod>2022-10-01</lastmod>
+    <lastmod>2022-10-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -40,7 +31,16 @@
   <url>
     <loc>https://tactfulbean.github.io/archives/1620af90.html</loc>
     
-    <lastmod>2022-10-01</lastmod>
+    <lastmod>2022-10-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tactfulbean.github.io/archives/f535b820.html</loc>
+    
+    <lastmod>2022-10-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
