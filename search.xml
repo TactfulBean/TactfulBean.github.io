@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Vue 使用 gzip 压缩</title>
+      <link href="/archives/c6c8dc0b.html"/>
+      <url>/archives/c6c8dc0b.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="Vue-使用-gzip-压缩"><a href="#Vue-使用-gzip-压缩" class="headerlink" title="Vue 使用 gzip 压缩"></a>Vue 使用 gzip 压缩</h2><p>gizp 压缩是一种 http 请求优化方式，通过减少文件体积来提高加载速度。html、js、css 文件甚至 json 数据都可以用它压缩，可以减小 60%以上的体积。</p><p>webpack 在打包时可以借助 compression webpack plugin 实现 gzip 压缩，首先需要安装该插件：</p><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install compression-webpack-plugin --save-dev</span><br></pre></td></tr></table></figure><h4 id="vue-config-js-配置"><a href="#vue-config-js-配置" class="headerlink" title="vue.config.js 配置"></a>vue.config.js 配置</h4><p>在 vue.config.js 中按照如下方式进行配置：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; defineConfig &#125; = <span class="built_in">require</span>(<span class="string">&quot;@vue/cli-service&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">CompressionPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;compression-webpack-plugin&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">productionSourceMap</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">transpileDependencies</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">publicPath</span>: <span class="string">&quot;./&quot;</span>,</span><br><span class="line">  <span class="attr">lintOnSave</span>: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">chainWebpack</span>: <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">    config.<span class="property">optimization</span>.<span class="title function_">minimize</span>(<span class="literal">true</span>);</span><br><span class="line">    config.<span class="property">optimization</span>.<span class="title function_">splitChunks</span>(&#123;</span><br><span class="line">      <span class="attr">chunks</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">    config.<span class="title function_">plugin</span>(<span class="string">&quot;compressionPlugin&quot;</span>).<span class="title function_">use</span>(</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">CompressionPlugin</span>(&#123;</span><br><span class="line">        <span class="comment">// test: /\.js$|\.html$|.\css$|\.otf$|\.ttf/,</span></span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.(js|css|html|ttf|woff|woff2)$/</span>,</span><br><span class="line">        <span class="attr">threshold</span>: <span class="number">10240</span>, <span class="comment">// 只有大小大于该值的资源会被处理 10240</span></span><br><span class="line">        <span class="attr">deleteOriginalAssets</span>: <span class="literal">false</span>, <span class="comment">// 删除原文件</span></span><br><span class="line">      &#125;)</span><br><span class="line">    );</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><h4 id="压缩结果"><a href="#压缩结果" class="headerlink" title="压缩结果"></a>压缩结果</h4><p>运行 npm run build 后看到打包压缩后的文件大小。<br><img src="https://pic.imgdb.cn/item/639dafbfb1fccdcd36890048.png" alt="压缩后大小对比"><br>程序上传至代码托管平台后，在浏览器进行文件查看，在控制台网络部分看到文件已经使用了 gzip 进行压缩传输。<br><img src="https://pic.imgdb.cn/item/639dafbfb1fccdcd3689004f.png" alt="代码压缩查看"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CMIP6 nc文件降尺度</title>
       <link href="/archives/caccdf60.html"/>
       <url>/archives/caccdf60.html</url>
